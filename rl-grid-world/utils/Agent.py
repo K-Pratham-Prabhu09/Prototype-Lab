@@ -1,5 +1,5 @@
 import random
-
+import numpy as np
 class Agent:
     """
     This is a class written by K Pratham Prabhu, to practice deep reinforcement learning.
