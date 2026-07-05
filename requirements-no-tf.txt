@@ -2,12 +2,12 @@
 torch
 torchvision
 torchaudio
+keras
 
 # --- Deep Reinforcement Learning ---
 # NOTE: On Windows, `gymnasium[all]` pulls in `uvloop` (which cannot be built).
 # Use a smaller set of extras to avoid uvloop.
-gymnasium[atari,box2d]       # The standard API for RL environments (without uvloop)
-stable-baselines3[extra] # Reliable implementations of RL algorithms (PPO, DQN, etc.)
+gymnasium       # The standard API for RL environments (without uvloop)
 shimmy               # Compatibility layer for older Gym environments
 pettingzoo           # For Multi-Agent Reinforcement Learning (MARL)
 
@@ -23,3 +23,4 @@ tqdm                 # Progress bars for training loops
 tensorboard
 wandb                # Weights & Biases for cloud-based logging
 mlflow
+

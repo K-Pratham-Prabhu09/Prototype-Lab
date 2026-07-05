@@ -1,3 +1,5 @@
+import numpy as np
+
 class GridWorld:
     """
     This is a class written by K Pratham Prabhu, to practice deep reinforcement learning.
