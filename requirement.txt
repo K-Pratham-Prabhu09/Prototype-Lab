@@ -25,3 +25,5 @@ tqdm                 # Progress bars for training loops
 tensorboard
 wandb                # Weights & Biases for cloud-based logging
 mlflow
+torchinfo
+optuna

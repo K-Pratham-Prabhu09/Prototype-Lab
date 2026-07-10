@@ -2,7 +2,7 @@ import torch
 import time
 
 # Create a massive 10,000 x 10,000 matrix
-size = 25000
+size = 10000
 
 # --- CPU TEST ---
 print("Running on CPU...")
