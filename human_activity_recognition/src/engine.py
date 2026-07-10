@@ -19,8 +19,9 @@ def get_train_test_data(parent_folder_path):
 
     return train_dataset, test_dataset
 
-def train_one_epoch(train_dataset,my_model,criterion,optimizer,device):
-    for X,Y in train_dataset:
+def train_one_epoch(train_loader,my_model,criterion,optimizer,device):
+    running_loss = 0.0
+    for X,Y in train_loader:
         # Move to the device specified
         X = X.to(device)
         Y = Y.to(device)
@@ -39,5 +40,8 @@ def train_one_epoch(train_dataset,my_model,criterion,optimizer,device):
 
         # Update the Optimizer
         optimizer.step()
+        
+        running_loss += loss.item() * X.size(0)
 
-    return loss/len(train_dataset)
+    # 4. Return the true average loss across all samples
+    return running_loss / len(train_loader.dataset)

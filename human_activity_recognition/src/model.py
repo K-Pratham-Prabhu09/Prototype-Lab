@@ -12,7 +12,7 @@ class MyNeuralNetwork(nn.Module):
         
     def forward(self,x):
         out, _ = self.lstm(x)
-        out = self.fc(out[-1,:])
+        out = self.fc(out[:,-1,:])
         return out
     
 

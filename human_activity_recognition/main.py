@@ -29,10 +29,10 @@ if __name__ == "__main__":
     test_data = DataLoader(test_dataset,batch_size=config.BATCH_SIZE, shuffle=False, num_workers=8,pin_memory=True)
     # Record start time
     starttime = datetime.now()
-    print(f"Training Started on:{starttime.strftime("%H:%M:%S")}")
+    print(f"Training Started on:{starttime.strftime("%H:%M:%S")} with {config.EPOCHS} epochs")
 
     for epoch in range(config.EPOCHS):
-        loss = train_one_epoch(train_dataset,lstm_model,criterion,optimizer,device)
+        loss = train_one_epoch(train_data,lstm_model,criterion,optimizer,device)
         print(f"{datetime.now().strftime("%H:%M:%S")}:Epoch={epoch}||Loss={loss:0.10f}")
     # Record end time
     endtime = datetime.now()
