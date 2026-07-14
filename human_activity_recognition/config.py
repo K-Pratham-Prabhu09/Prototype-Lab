@@ -1,7 +1,7 @@
 # All the hyperparams needed
 BATCH_SIZE = 32
 LEARNING_RATE = 0.001
-EXPERIMENT_NAME = "My_First_RTX_Run"
+EXPERIMENT_NAME = "HAR Dataset LSTM"
 WEIGHT_DECAY = 1e-5
 NUM_HIDDEN = 10
 EPOCHS = 60
