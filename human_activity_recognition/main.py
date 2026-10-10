@@ -10,19 +10,19 @@ from pathlib import Path
 
 if __name__ == "__main__":
     # CPU and GPU switching
-    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    device = 'cpu'
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
 
-    mlflow.set_experiment(experiment_name=config.EXPERIMENT_NAME)
     mlflow.set_tracking_uri("http://127.0.0.1:5000")
+    mlflow.set_experiment(experiment_name=config.EXPERIMENT_NAME)
     run_name = "LSTM_basic_run"
     # Data preparation
     parent_folder_path = Path(__file__).resolve().parent
     train_dataset, test_dataset = get_train_test_data(parent_folder_path)
+    print("Fetched Train and Test Data")
 
     # All Initializations:
-    num_features = train_dataset[:][0].shape[2]
+    num_features = train_dataset[0][0].shape[-1]
     lstm_model = MyNeuralNetwork(num_features,config.NUM_HIDDEN).to(device)
     optimizer = optim.Adam(lstm_model.parameters(),lr=config.LEARNING_RATE)
     criterion =nn.CrossEntropyLoss().to(device)
@@ -30,8 +30,8 @@ if __name__ == "__main__":
     criterion_name = type(criterion).__name__
     optimizer_name = type(optimizer).__name__
 
-    train_data = DataLoader(train_dataset,batch_size=config.BATCH_SIZE, shuffle=True, num_workers=8,pin_memory=True)
-    test_data = DataLoader(test_dataset,batch_size=config.BATCH_SIZE, shuffle=False, num_workers=8,pin_memory=True)
+    train_data = DataLoader(train_dataset,batch_size=config.BATCH_SIZE, shuffle=True, num_workers=10,pin_memory=True)
+    test_data = DataLoader(test_dataset,batch_size=config.BATCH_SIZE, shuffle=False, num_workers=10,pin_memory=True)
     # Record start time
     with mlflow.start_run(run_name=run_name):
         mlflow.log_params({
@@ -43,8 +43,8 @@ if __name__ == "__main__":
             "criterion": criterion_name,
             "optimizer_name":optimizer_name,
             "num_features":num_features,
-            "train_data_size": len(train_data),
-            "test_data_size": len(test_data)
+            "train_data_size": len(train_dataset),
+            "test_data_size": len(test_dataset)
         })
 
         for epoch in range(config.EPOCHS):
@@ -52,3 +52,4 @@ if __name__ == "__main__":
             print(f"Epoch={epoch}||Loss={loss:0.10f}")
             mlflow.log_metric("loss",loss,step=epoch+1)
 
+        mlflow.pytorch.log_model(lstm_model, "lstm_model")

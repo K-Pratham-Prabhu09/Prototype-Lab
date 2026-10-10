@@ -10,13 +10,10 @@ def get_train_test_data(parent_folder_path):
     x_train_path = parent_folder_path / "data" / "train" / "Inertial Signals"
     y_train_path = parent_folder_path / "data" / "train" / "y_train.txt"
     train_dataset = HARDataset(x_train_path, y_train_path)
-    print(f"Dataset Shape: {train_dataset[:][0].shape}")
     # Test Dataset
     x_test_path = parent_folder_path / "data" / "test" / "Inertial Signals"
     y_path = parent_folder_path / "data" / "test" / "y_test.txt"
     test_dataset = HARDataset(x_test_path, y_path)
-    print(f"Dataset Shape: {test_dataset[:][0].shape}")
-
     return train_dataset, test_dataset
 
 def train_one_epoch(train_loader,my_model,criterion,optimizer,device):
