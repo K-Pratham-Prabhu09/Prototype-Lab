@@ -207,3 +207,17 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# MLflow logging and tracking
+mlruns/
+mlartifacts/
+mlflow.db
+*.db
+.trash/
+
+# Raw data and downloaded datasets
+data/
+raw_data/
+datasets/
+**/raw/
+
